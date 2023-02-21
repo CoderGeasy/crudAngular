@@ -1,0 +1,110 @@
+<div class="flex flex-row bg-gray-200 h-screen">
+  <div class="w-1/2 h-screen p-10">
+    <h1 class="text-4xl font-bold text-blue-800 mb-8">Crea tu cuenta</h1>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="space-y-4">
+
+      <!--Username-->
+      <div class="flex flex-col">
+        <label for="name" class="text-lg font-medium text-gray-700 mb-2">Nombre de usuario</label>
+        <input type="text" [ngClass]="{'border border-red-400': form.get('name')?.invalid && form.get('name')?.touched}"
+          formControlName="name" id="name"
+          class="border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-2 focus:ring-blue-500 p-2"
+          placeholder="Ingresa un nombre de usuario..." required>
+
+        <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="text-red-500 text-sm mt-2">
+          <span *ngIf="form.get('name')?.errors?.['required']">El nombre es requerido.</span>
+          <span *ngIf="form.get('name')?.errors?.['minlength'].requiredLength">El nombre debe tener como mínimo 3
+            caracteres.</span>
+        </div>
+      </div>
+
+      <!--Email-->
+      <div class="flex flex-col">
+        <label for="email" class="text-lg font-medium text-gray-700 mb-2">Correo electrónico</label>
+        <input type="email"
+          [ngClass]="{'border border-red-400': form.get('email')?.invalid && form.get('email')?.touched}"
+          formControlName="email" id="email"
+          class="border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-2 focus:ring-blue-500 p-2"
+          placeholder="Ingresa tu correo electrónico..." required>
+
+        <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="text-red-500 text-sm mt-2">
+          <span *ngIf="form.get('email')?.errors?.['required']">El correo electrónico es requerido.</span>
+          <span *ngIf="form.get('email')?.errors?.['email']">El correo electrónico debe ser válido.</span>
+        </div>
+      </div>
+
+      <!--Password-->
+      <div class="flex flex-col">
+        <label for="password" class="text-lg font-medium text-gray-700 mb-2">Escribe tu contraseña</label>
+        <input type="password"
+          [ngClass]="{'border border-red-400': form.get('password')?.invalid && form.get('password')?.touched}"
+          formControlName="password" id="password"
+          class="border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-2 focus:ring-blue-500 p-2 "
+          placeholder="Ingresa una contraseña..." required>
+
+        <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="text-red-500 text-sm mt-2"
+          role="alert">
+          <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span class="sr-only">Info</span>
+          <div>
+            <span *ngIf="form.get('password')?.errors?.['required']" class="font-medium">Contraseña necesaria para continuar</span>
+            <span *ngIf="form.get('password')?.errors?.['minlength'].requiredLength" class="font-medium">La contraseña debe tener como minimo 8 caracteres.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!--Password confirm-->
+      <div class="flex flex-col">
+        <label for="password_confirm" class="text-lg font-medium text-gray-700 mb-2">Confirma tu contraseña</label>
+        <input type="password"
+          [ngClass]="{'border border-red-400': form.get('password_confirmation')?.invalid && form.get('password_confirmation')?.touched}"
+          formControlName="password_confirmation" id="password_confirm"
+          class="border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-2 focus:ring-blue-500 p-2 "
+          placeholder="Confirma tu contraseña..." required>
+
+        <div *ngIf="form.get('password_confirmation')?.invalid && form.get('password_confirmation')?.touched"
+          class="text-red-500 text-sm mt-2" role="alert">
+          <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+              clip-rule="evenodd"></path>
+          </svg>
+          <span class="sr-only">Info</span>
+          <div>
+            <span *ngIf="form.get('password_confirmation')?.errors?.['required']" class="font-medium">Contraseña necesaria para continuar</span>
+            <span *ngIf="form.get('password_confirmation')?.errors?.['minlength'].requiredLength"
+              class="font-medium">La contraseña debe tener como minimo 8 caracteres.</span>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <!--Boton-->
+      <button type="submit" [ngClass]="{ 'button-failed': apiFailed }" (animationend)="onAnimationEnd()"
+        class="bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-4 focus:ring-blue-300 rounded-lg text-white font-medium py-2 px-4 mt-4 transition-colors duration-300">
+        Crear Usuario
+      </button>
+
+    </form>
+
+    <!--Login-->
+    <label class="flex items-center justify-left pt-5 text-sm font-medium text-dark">
+      <span class="mr-2">¿Ya tienes cuenta?</span>
+      <button (click)="backToLogin()" class="text-blue-600 hover:underline dark:text-blue-500">
+        Iniciar sesión
+      </button>
+    </label>
+
+  </div>
+
+  <router-outlet></router-outlet>
+</div>
